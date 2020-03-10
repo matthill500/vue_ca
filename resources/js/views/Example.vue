@@ -31,7 +31,6 @@ export default {
         console.log('***USER LOGGED OUT***');
       }
     },
-
   methods: {
     login() {
       let app = this;

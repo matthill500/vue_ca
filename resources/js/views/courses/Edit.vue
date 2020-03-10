@@ -134,6 +134,7 @@
           headers: { Authorization: "Bearer " + token }
         })
         .then(function (response) {
+          //redirect
           app.$router.push('/courses');
         })
         .catch(function (error) {
