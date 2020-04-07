@@ -8,6 +8,10 @@
     <br>
     Test courses <br>
     <button @click="getCourses()"> Get Courses </button>
+    <br>
+    Test lecturers <br>
+    <button @click="getLecturers()"> Test Lecturers </button>
+
   </div>
 </template>
 <script>
@@ -51,6 +55,20 @@ export default {
       let app = this;
       let token = localStorage.getItem('token');
       axios.get('/api/courses',{
+        headers: {Authorization: "Bearer " + token}
+      })
+      .then(function (response) {
+         console.log(response.data.data);
+         app.courses = response.data.data;
+      })
+      .catch(function (error) {
+         console.log(error);
+      });
+    },
+    getLecturers() {
+      let app = this;
+      let token = localStorage.getItem('token');
+      axios.get('/api/lecturers',{
         headers: {Authorization: "Bearer " + token}
       })
       .then(function (response) {

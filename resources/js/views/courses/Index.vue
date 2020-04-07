@@ -26,7 +26,7 @@
           </b-tr>
         </b-head>
 
-        <b-body>
+        <body>
           <b-tr v-for="item in items" :key="item.id">
             <b-td>{{item.title}}</b-td>
             <b-td>{{item.code}}</b-td>
@@ -34,12 +34,16 @@
             <b-td>{{item.points}}</b-td>
             <b-td>{{item.level}}</b-td>
             <b-td>
-              <router-link :to="`/courses/edit/${item.id}`">
+              <router-link :to="`/items/edit/${item.id}`">
               Edit
               </router-link>
             </b-td>
+            <b-td>
+                  <b-button variant="danger" @click="deleteData(item)">Delete</b-button>
+
+            </b-td>
           </b-tr>
-        </b-body>
+        </body>
       </b-table-simple>
 
     </b-col>
@@ -50,27 +54,68 @@
 export default{
   data(){
     return {
-      items: []
+      items:[]
     }
   },
   created(){
     let app = this;
     let token = localStorage.getItem('token');
+    axios.get('/api/enrolments',{
+      headers: {Authorization: "Bearer " + token}
+    })
+    .then(function (response) {
+       app.enrolments = response.data.data;
+       console.log(app.enrolments);
+    })
+    .catch(function (error) {
+       console.log(error);
+    });
     axios.get('/api/courses',{
       headers: {Authorization: "Bearer " + token}
     })
     .then(function (response) {
-       console.log(response.data.data);
+
        app.items = response.data.data;
+        console.log(app.items);
     })
     .catch(function (error) {
        console.log(error);
     });
   },
-  methods: {
+  methods:{
+    deleteData(item){
+      let app = this;
+      let token = localStorage.getItem('token');
+      if(item.enrolments.length > 1){
+        alert("you cannot delete a course with more than 1 enrolment!");
+      }else if(item.enrolments.length === 0){
+        axios.delete('/api/courses/' + item.id, {
+          headers: { Authorization: "Bearer " + token }
+        })
+        .then(function (response){
+          let idx = app.items.findIndex(function(obj){return obj.id == item.id})
+          app.items.splice(idx, 1);
 
+        });
+      }else{
+        axios.delete('/api/enrolments/' + item.enrolments[0].id, {
+          headers: { Authorization: "Bearer " + token }
+        })
+        .then(function (response){
+          console.log(item);
+          axios.delete('/api/courses/' + item.id, {
+            headers: { Authorization: "Bearer " + token }
+          })
+          .then(function (response){
+            let idx = app.items.findIndex(function(obj){return obj.id == item.id})
+            app.items.splice(idx, 1);
+          });
+        })
+      }
+    }
   }
 }
+
 </script>
 
 <style>

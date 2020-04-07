@@ -120,7 +120,6 @@
     methods: {
       onSubmit(evt) {
         evt.preventDefault()
-
         let app = this;
         let token = localStorage.getItem('token');
         axios.put(`/api/courses/${app.$route.params.id}`, {
