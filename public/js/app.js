@@ -80280,7 +80280,9 @@ var render = function() {
                           }
                         },
                         [
-                          _c("option", [_vm._v("select")]),
+                          _c("option", { attrs: { selected: "" } }, [
+                            _vm._v(_vm._s(_vm.enrolment.course.title))
+                          ]),
                           _vm._v(" "),
                           _vm._l(_vm.courses, function(course) {
                             return _c(
@@ -80337,7 +80339,9 @@ var render = function() {
                           }
                         },
                         [
-                          _c("option", [_vm._v("select")]),
+                          _c("option", { attrs: { selected: "" } }, [
+                            _vm._v(_vm._s(_vm.enrolment.lecturer.name))
+                          ]),
                           _vm._v(" "),
                           _vm._l(_vm.lecturers, function(lecturer) {
                             return _c(
