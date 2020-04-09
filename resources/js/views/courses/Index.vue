@@ -8,13 +8,13 @@
             <b-th>
               Title
             </b-th>
-            <b-th>
+            <b-th class="info">
               Code
             </b-th>
-            <b-th>
+            <b-th class="info">
               Description
             </b-th>
-            <b-th>
+            <b-th class="info2">
               Points
             </b-th>
             <b-th>
@@ -100,7 +100,6 @@ export default{
         .then(function (response){
           let idx = app.items.findIndex(function(obj){return obj.id == item.id})
           app.items.splice(idx, 1);
-
         });
       }else{
         axios.delete('/api/enrolments/' + item.enrolments[0].id, {
@@ -124,5 +123,11 @@ export default{
 </script>
 
 <style>
+.info{
+  padding-left:80px!important;
+}
+.info2{
+  padding-left:440px!important;
+}
 
 </style>
