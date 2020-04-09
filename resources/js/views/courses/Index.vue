@@ -39,6 +39,11 @@
               </router-link>
             </b-td>
             <b-td>
+              <router-link :to="`/courses/show/${item.id}`">
+              <b-button variant="info">View</b-button>
+              </router-link>
+            </b-td>
+            <b-td>
                   <b-button variant="danger" @click="deleteData(item)">Delete</b-button>
 
             </b-td>

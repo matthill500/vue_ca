@@ -8,14 +8,17 @@ import Example from './views/Example'
 import CoursesIndex from './views/courses/Index'
 import CoursesEdit from './views/courses/Edit'
 import CoursesCreate from './views/courses/create'
+import CoursesShow from './views/courses/show'
 
 import LecturersIndex from './views/lecturers/Index'
 import LecturersEdit from './views/lecturers/Edit'
 import LecturersCreate from './views/lecturers/create'
+import LecturersShow from './views/lecturers/show'
 
 import EnrolmentsIndex from './views/enrolments/Index'
 import EnrolmentsEdit from './views/enrolments/Edit'
 import EnrolmentsCreate from './views/enrolments/create'
+import EnrolmentsShow from './views/enrolments/show'
 
 
 Vue.use(Router)
@@ -50,6 +53,11 @@ export default new Router({
       component: CoursesCreate
     },
     {
+      path: '/courses/show/:id',
+      name: 'coursesShow',
+      component: CoursesShow
+    },
+    {
       path: '/lecturers',
       name: 'lecturersIndex',
       component: LecturersIndex
@@ -65,6 +73,11 @@ export default new Router({
       component: LecturersCreate
     },
     {
+      path: '/lecturers/show/:id',
+      name: 'lecturersShow',
+      component: LecturersShow
+    },
+    {
       path: '/enrolments',
       name: 'enrolmentsIndex',
       component: EnrolmentsIndex
@@ -78,6 +91,11 @@ export default new Router({
       path: '/enrolments/create',
       name: 'enrolmentsCreate',
       component: EnrolmentsCreate
+    },
+    {
+      path: '/enrolments/show/:id',
+      name: 'enrolmentsShow',
+      component: EnrolmentsShow
     }
   ]
 })
