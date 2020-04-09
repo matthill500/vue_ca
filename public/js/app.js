@@ -2695,16 +2695,6 @@ __webpack_require__.r(__webpack_exports__);
       enrolment: {},
       courses: {},
       lecturers: {},
-      selectedCourse: null,
-      selectedStatus: null,
-      selectedLecturer: null,
-      form: {
-        date: '',
-        time: '',
-        status: this.selectedStatus,
-        course_id: this.selectedCourse,
-        lecturer_id: this.selectedLecturer
-      },
       show: true,
       loggedIn: false
     };
@@ -2756,12 +2746,12 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
       var token = localStorage.getItem('token');
       console.log(app.form);
-      axios.post('/api/enrolments', {
+      axios.put("/api/enrolments/".concat(app.$route.params.id), {
         date: app.enrolment.date,
         time: app.enrolment.time,
-        status: app.selectedStatus,
-        course_id: app.selectedCourse,
-        lecturer_id: app.selectedLecturer
+        status: app.enrolment.status,
+        course_id: this.selectedCourse,
+        lecturer_id: this.selectedLecturer
       }, {
         headers: {
           Authorization: "Bearer ".concat(token)
@@ -2775,16 +2765,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeCourse: function changeCourse(event) {
       this.selectedCourse = event.target.options[event.target.options.selectedIndex].value;
-      console.log("course id: " + this.selectedCourse);
-      console.log("date: " + this.form.date);
+      console.log(this.selectedCourse);
     },
     changeStatus: function changeStatus(event) {
       this.selectedStatus = event.target.options[event.target.options.selectedIndex].value;
-      console.log("status: " + this.selectedStatus);
     },
     changeLecturer: function changeLecturer(event) {
       this.selectedLecturer = event.target.options[event.target.options.selectedIndex].value;
-      console.log("Lecturer  : " + this.selectedLecturer);
+      console.log(this.selectedLecturer);
     }
   }
 });
@@ -80249,8 +80237,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.enrolment.course.title,
-                              expression: "enrolment.course.title"
+                              value: _vm.enrolment.course.id,
+                              expression: "enrolment.course.id"
                             }
                           ],
                           staticClass: "form-control",
@@ -80267,7 +80255,7 @@ var render = function() {
                                   })
                                 _vm.$set(
                                   _vm.enrolment.course,
-                                  "title",
+                                  "id",
                                   $event.target.multiple
                                     ? $$selectedVal
                                     : $$selectedVal[0]
@@ -80308,8 +80296,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.enrolment.lecturer.name,
-                              expression: "enrolment.lecturer.name"
+                              value: _vm.enrolment.lecturer.id,
+                              expression: "enrolment.lecturer.id"
                             }
                           ],
                           staticClass: "form-control",
@@ -80326,7 +80314,7 @@ var render = function() {
                                   })
                                 _vm.$set(
                                   _vm.enrolment.lecturer,
-                                  "name",
+                                  "id",
                                   $event.target.multiple
                                     ? $$selectedVal
                                     : $$selectedVal[0]
